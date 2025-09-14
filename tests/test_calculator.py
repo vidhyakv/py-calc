@@ -49,3 +49,9 @@ def test_delimiter_of_any_length(sc):
 def test_multiple_delimiters(sc):
     assert sc.add("//[*][%]\n1*2%3") == 6
 
+
+def test_multiple_long_delimiters(sc):
+    assert sc.add("//[***][%%%]\n1***2***3") == 6
+    assert sc.add("//[***][%%%]\n1***2%%%3***4%%%5") == 15
+    assert sc.add("//[***][$$][%%%]\n1***2%%%3***4%%%5$$6") == 21
+
