@@ -17,4 +17,8 @@ class StringCalculator:
         number_strings = numbers_with_default_delimiter.split(default_delimiter)
         number_values = [int(value) for value in number_strings]
 
+        negatives = [x for x in number_values if x < 0]
+        if negatives:
+            raise ValueError(f"Negatives not allowed: {negatives}")
+
         return sum(number_values)
