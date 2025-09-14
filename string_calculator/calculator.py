@@ -4,6 +4,8 @@ class StringCalculator:
     DEFAULT_DELIMITER = ","
     NEWLINE = "\n"
     CUSTOM_DELIMITER_PREFIX = "//"
+    MULTI_DELIMITER_PREFIX = "//["
+    MULTI_DELIMITER_REGEX = r"\[(.*?)]"
 
     def __init__(self):
         pass
@@ -16,10 +18,12 @@ class StringCalculator:
 
         if numbers.startswith(self.CUSTOM_DELIMITER_PREFIX):
             delimiter_definition, numbers = numbers.split(self.NEWLINE, 1)
-            if delimiter_definition.startswith("//["):
-                delimiters = re.findall(r"\[(.*?)]", delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):])
+            custom_part = delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):]
+
+            if delimiter_definition.startswith(self.MULTI_DELIMITER_PREFIX):
+                delimiters = re.findall(self.MULTI_DELIMITER_REGEX, custom_part)
             else:
-                delimiters = [delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):]]
+                delimiters = [custom_part]
 
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
