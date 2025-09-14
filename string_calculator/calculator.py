@@ -6,13 +6,14 @@ class StringCalculator:
         if not numbers:
             return 0
 
-        delimiter = ","
+        newLineSymbol = "\n"
+        defaultDelimiter = ","
         if numbers.startswith("//"):
-            delimiter_line, numbers = numbers.split("\n", 1)
-            delimiter = delimiter_line[2:]
+            delimiter_line, numbers = numbers.split(newLineSymbol, 1)
+            defaultDelimiter = delimiter_line[2:]
 
-        numbers_with_commas = numbers.replace("\n", delimiter)
-        split_numbers = numbers_with_commas.split(delimiter)
+        numbers_with_commas = numbers.replace(newLineSymbol, defaultDelimiter)
+        split_numbers = numbers_with_commas.split(defaultDelimiter)
         converted_integers = [int(num) for num in split_numbers]
 
         return sum(converted_integers)
