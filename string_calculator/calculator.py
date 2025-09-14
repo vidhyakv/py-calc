@@ -1,4 +1,6 @@
 import re
+
+
 class StringCalculator:
     MAX_NUMBER = 1000
     DEFAULT_DELIMITER = ","
@@ -28,7 +30,7 @@ class StringCalculator:
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
 
-        number_strings = re.split(pattern,numbers_with_delimiter)
+        number_strings = re.split(pattern, numbers_with_delimiter)
 
         number_values = [
             int(value)
