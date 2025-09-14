@@ -41,6 +41,8 @@ def test_numbers_bigger_than_1000_are_ignored(sc):
     assert sc.add("2,1001") == 2
     assert sc.add("1000,2") == 1002
 
-
+def test_delimiter_of_any_length(sc):
+    assert sc.add("//[***]\n1***2***3") == 6
+    assert sc.add("//[abc]\n4abc5abc6") == 15
 
 
