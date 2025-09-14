@@ -16,3 +16,6 @@ def test_non_empty_string_do_not_return_zero(sc):
 def test_single_number_returns_value(sc):
     assert sc.add("1") == 1
 
+def test_two_numbers_returns_sum(sc):
+    assert sc.add("1,2") == 3
+
