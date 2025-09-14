@@ -1,8 +1,10 @@
 class StringCalculator:
+    def __init__(self):
+        pass
+
     def add(self, numbers: str) -> int:
         if numbers == "":
             return 0
+
         parts = numbers.split(",")
-        if len(parts) == 1:
-            return int(parts[0])
-        return int(parts[0]) + int(parts[1])
+        return sum(int(p) for p in parts)

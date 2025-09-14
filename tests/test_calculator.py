@@ -18,4 +18,5 @@ def test_single_number_returns_value(sc):
 
 def test_two_numbers_returns_sum(sc):
     assert sc.add("1,2") == 3
+    assert sc.add("22,43") == 65
 
