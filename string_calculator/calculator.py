@@ -15,7 +15,8 @@ class StringCalculator:
 
         numbers_with_default_delimiter = numbers.replace(newline, default_delimiter)
         number_strings = numbers_with_default_delimiter.split(default_delimiter)
-        number_values = [int(value) for value in number_strings]
+        number_values = [num for value in number_strings if (num := int(value)) <= 1000]
+
 
         negatives = [x for x in number_values if x < 0]
         if negatives:
