@@ -30,7 +30,11 @@ class StringCalculator:
 
         number_strings = re.split(pattern,numbers_with_delimiter)
 
-        number_values = [num for value in number_strings if (num := int(value)) <= self.MAX_NUMBER]
+        number_values = [
+            int(value)
+            for value in number_strings
+            if value.lstrip('-').isdigit() and int(value) <= self.MAX_NUMBER
+        ]
 
         negatives = [x for x in number_values if x < 0]
         if negatives:
