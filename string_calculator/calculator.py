@@ -3,11 +3,11 @@ class StringCalculator:
         pass
 
     def add(self, numbers: str) -> int:
-        if numbers == "":
+        if not numbers:
             return 0
-        defaultDelimiter = ","
-        newLineDelimiter = "\n"
 
-        numbers = numbers.replace(newLineDelimiter, defaultDelimiter)
-        parts = numbers.split(",")
-        return sum(int(p) for p in parts)
+        numbers_with_commas = numbers.replace("\n", ",")
+        split_numbers = numbers_with_commas.split(",")
+        converted_integers = [int(num) for num in split_numbers]
+
+        return sum(converted_integers)
