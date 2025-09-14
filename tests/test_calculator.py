@@ -12,3 +12,7 @@ def test_empty_string_returns_zero(sc):
 
 def test_non_empty_string_do_not_return_zero(sc):
     assert sc.add("1") != 0
+
+def test_single_number_returns_value():
+    assert sc.add("1") == 1
+
