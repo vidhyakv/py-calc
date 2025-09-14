@@ -46,3 +46,6 @@ def test_delimiter_of_any_length(sc):
     assert sc.add("//[abc]\n4abc5abc6") == 15
 
 
+def test_multiple_delimiters(sc):
+    assert sc.add("//[*][%]\n1*2%3") == 6
+
