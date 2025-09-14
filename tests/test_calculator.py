@@ -32,5 +32,14 @@ def test_custom_delimiter(sc):
     assert sc.add("//;\n1;2") == 3
     assert sc.add("//|\n4|5|6") == 15
 
+# tests/test_calculator.py
+import pytest
+
+def test_negative_numbers_raise_exception(sc):
+    with pytest.raises(ValueError) as exc:
+        sc.add("1,-2,3")
+    assert "Negatives not allowed" in str(exc.value)
+
+
 
 
