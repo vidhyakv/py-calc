@@ -1,4 +1,9 @@
 class StringCalculator:
+    MAX_NUMBER = 1000
+    DEFAULT_DELIMITER = ","
+    NEWLINE = "\n"
+    CUSTOM_DELIMITER_PREFIX = "//"
+
     def __init__(self):
         pass
 
@@ -6,17 +11,16 @@ class StringCalculator:
         if not numbers:
             return 0
 
-        newline = "\n"
-        default_delimiter = ","
+        delimiter = self.DEFAULT_DELIMITER
 
-        if numbers.startswith("//"):
-            delimiter_definition, numbers = numbers.split(newline, 1)
-            default_delimiter = delimiter_definition[2:]
+        if numbers.startswith(self.CUSTOM_DELIMITER_PREFIX):
+            delimiter_definition, numbers = numbers.split(self.NEWLINE, 1)
+            delimiter = delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):]
 
-        numbers_with_default_delimiter = numbers.replace(newline, default_delimiter)
-        number_strings = numbers_with_default_delimiter.split(default_delimiter)
-        number_values = [num for value in number_strings if (num := int(value)) <= 1000]
+        numbers_with_delimiter = numbers.replace(self.NEWLINE, delimiter)
+        number_strings = numbers_with_delimiter.split(delimiter)
 
+        number_values = [num for value in number_strings if (num := int(value)) <= self.MAX_NUMBER]
 
         negatives = [x for x in number_values if x < 0]
         if negatives:
