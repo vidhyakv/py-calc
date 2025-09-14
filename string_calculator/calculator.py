@@ -20,12 +20,12 @@ class StringCalculator:
 
         if numbers.startswith(self.CUSTOM_DELIMITER_PREFIX):
             delimiter_definition, numbers = numbers.split(self.NEWLINE, 1)
-            custom_part = delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):]
+            custom_delimiters = delimiter_definition[len(self.CUSTOM_DELIMITER_PREFIX):]
 
             if delimiter_definition.startswith(self.MULTI_DELIMITER_PREFIX):
-                delimiters = re.findall(self.MULTI_DELIMITER_REGEX, custom_part)
+                delimiters = re.findall(self.MULTI_DELIMITER_REGEX, custom_delimiters)
             else:
-                delimiters = [custom_part]
+                delimiters = [custom_delimiters]
 
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
