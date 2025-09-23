@@ -1,28 +1,5 @@
 import re
 
-def extract_delimiters(numbers):
-    NEWLINE = "\n"
-    CUSTOM_DELIMITER_PREFIX = "//"
-    MULTI_DELIMITER_PREFIX = "//["
-    MULTI_DELIMITER_REGEX = r"\[(.*?)]"
-    DEFAULT_DELIMITER = ","
-
-
-    delimiters = [DEFAULT_DELIMITER]
-
-    if numbers.startswith(CUSTOM_DELIMITER_PREFIX):
-        delimiter_definition, numbers = numbers.split(NEWLINE, 1)
-        custom_delimiters = delimiter_definition[len(CUSTOM_DELIMITER_PREFIX):]
-
-        if delimiter_definition.startswith(MULTI_DELIMITER_PREFIX):
-            delimiters = re.findall(MULTI_DELIMITER_REGEX, custom_delimiters)
-        else:
-            delimiters = [custom_delimiters]
-
-
-    return delimiters , numbers
-
-
 class StringCalculator:
     MAX_NUMBER = 1000
     DEFAULT_DELIMITER = ","
@@ -35,16 +12,24 @@ class StringCalculator:
         pass
 
     @staticmethod
-    def _handle_negatives(self, number_values):
+    def _handle_negatives(number_values):
         negatives = [x for x in number_values if x < 0]
         if negatives:
             raise ValueError(f"Negatives not allowed: {negatives}")
+
+    @classmethod
+    def _extract_delimiters(cls, numbers):
+        if numbers.startswith(cls.MULTI_DELIMITER_PREFIX):
+            return re.findall(cls.MULTI_DELIMITER_REGEX, numbers)
+        elif numbers.startswith(cls.CUSTOM_DELIMITER_PREFIX):
+            return [numbers[2]]
+        return [cls.DEFAULT_DELIMITER]
 
     def add(self, numbers: str) -> int:
         if not numbers:
             return 0
 
-        delimiters , numbers = extract_delimiters(numbers)
+        delimiters = self._extract_delimiters(numbers)
 
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
@@ -56,5 +41,5 @@ class StringCalculator:
             for value in number_strings
             if value.lstrip('-').isdigit() and int(value) <= self.MAX_NUMBER
         ]
-        handle_negatives(number_values)
+        self._handle_negatives(number_values)
         return sum(number_values)
