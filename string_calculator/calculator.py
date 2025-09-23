@@ -31,6 +31,9 @@ class StringCalculator:
 
         delimiters = self._extract_delimiters(numbers)
 
+        if numbers.startswith(self.CUSTOM_DELIMITER_PREFIX):
+            numbers = numbers.split(self.NEWLINE, 1)[1]
+
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
 
