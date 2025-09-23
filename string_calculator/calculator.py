@@ -28,6 +28,18 @@ class StringCalculator:
         if self._numbers_str.startswith(self.CUSTOM_DELIMITER_PREFIX):
             self._numbers_str = self._numbers_str.split(self.NEWLINE, 1)[1]
 
+    def _normalize_newlines(self):
+        self._numbers_str = self._numbers_str.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
+
+    def _split_numbers(self, delimiters):
+        pattern = "|".join(map(re.escape, delimiters))
+        number_strings = re.split(pattern, self._numbers_str)
+        self._numbers = [
+            int(value)
+            for value in number_strings
+            if value.lstrip('-').isdigit() and int(value) <= self.MAX_NUMBER
+        ]
+
     def add(self, numbers_str: str) -> int:
         if not numbers_str:
             return 0
@@ -35,15 +47,7 @@ class StringCalculator:
         self._numbers_str = numbers_str
         delimiters = self._extract_delimiters()
         self._remove_custom_delimiter()
-
-        numbers_with_delimiter = self._numbers_str.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
-        pattern = "|".join(map(re.escape, delimiters))
-
-        self._numbers = [
-            int(value)
-            for value in re.split(pattern, numbers_with_delimiter)
-            if value.lstrip('-').isdigit() and int(value) <= self.MAX_NUMBER
-        ]
-
+        self._normalize_newlines()
+        self._split_numbers(delimiters)
         self._handle_negatives()
         return sum(self._numbers)
