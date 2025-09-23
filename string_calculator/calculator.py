@@ -24,7 +24,7 @@ class StringCalculator:
             return [self._numbers_str[2]]
         return [self.DEFAULT_DELIMITER]
 
-    def _remove_header(self):
+    def _remove_custom_delimiter(self):
         if self._numbers_str.startswith(self.CUSTOM_DELIMITER_PREFIX):
             self._numbers_str = self._numbers_str.split(self.NEWLINE, 1)[1]
 
@@ -34,7 +34,7 @@ class StringCalculator:
 
         self._numbers_str = numbers_str
         delimiters = self._extract_delimiters()
-        self._remove_header()
+        self._remove_custom_delimiter()
 
         numbers_with_delimiter = self._numbers_str.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
