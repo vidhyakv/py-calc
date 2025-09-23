@@ -1,15 +1,6 @@
 import re
 
-
-def handle_negatives(number_values):
-    negatives = [x for x in number_values if x < 0]
-    if negatives:
-        raise ValueError(f"Negatives not allowed: {negatives}")
-
-
 def extract_delimiters(numbers):
-    MAX_NUMBER = 1000
-    DEFAULT_DELIMITER = ","
     NEWLINE = "\n"
     CUSTOM_DELIMITER_PREFIX = "//"
     MULTI_DELIMITER_PREFIX = "//["
@@ -42,6 +33,11 @@ class StringCalculator:
 
     def __init__(self):
         pass
+
+    def handle_negatives(self, number_values):
+        negatives = [x for x in number_values if x < 0]
+        if negatives:
+            raise ValueError(f"Negatives not allowed: {negatives}")
 
     def add(self, numbers: str) -> int:
         if not numbers:
