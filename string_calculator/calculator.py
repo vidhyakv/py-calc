@@ -29,7 +29,7 @@ def extract_delimiters(numbers):
             delimiters = [custom_delimiters]
 
 
-    return delimiters
+    return delimiters , numbers
 
 
 class StringCalculator:
@@ -47,9 +47,8 @@ class StringCalculator:
         if not numbers:
             return 0
 
-        delimiters = extract_delimiters(numbers)
+        delimiters , numbers = extract_delimiters(numbers)
 
-        print(delimiters)
         numbers_with_delimiter = numbers.replace(self.NEWLINE, self.DEFAULT_DELIMITER)
         pattern = "|".join(map(re.escape, delimiters))
 
