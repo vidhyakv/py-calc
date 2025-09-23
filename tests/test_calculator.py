@@ -64,3 +64,7 @@ def test_multiple_long_delimiters(sc):
     assert sc.add("//[***][%%%]\n1***2%%%3***4%%%5") == 15
     assert sc.add("//[***][$$][%%%]\n1***2%%%3***4%%%5$$6") == 21
     assert sc.add("//[***][$$][%%%]\n1***2%%%3***4%%%5$$$6") == 15
+
+@pytest.mark.parametrize("a,b, expected",[(1,2,3),(3,4,7)])
+def test_with_parameter(a,b, expected, sc):
+    assert sc.add(f"{a},{b}") == expected
