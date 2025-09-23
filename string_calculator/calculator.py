@@ -34,7 +34,8 @@ class StringCalculator:
     def __init__(self):
         pass
 
-    def handle_negatives(self, number_values):
+    @staticmethod
+    def _handle_negatives(self, number_values):
         negatives = [x for x in number_values if x < 0]
         if negatives:
             raise ValueError(f"Negatives not allowed: {negatives}")
