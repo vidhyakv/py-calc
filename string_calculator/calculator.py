@@ -13,7 +13,7 @@ class StringCalculator:
         self._numbers = []
 
     def _handle_negatives(self):
-        negatives = [x for x in self._numbers if x < 0]  # check parsed numbers, not string
+        negatives = [x for x in self._numbers if x < 0]
         if negatives:
             raise ValueError(f"Negatives not allowed: {negatives}")
 
@@ -21,7 +21,7 @@ class StringCalculator:
         if self._numbers_str.startswith(self.MULTI_DELIMITER_PREFIX):
             return re.findall(self.MULTI_DELIMITER_REGEX, self._numbers_str)
         elif self._numbers_str.startswith(self.CUSTOM_DELIMITER_PREFIX):
-            return [self._numbers_str[2]]
+            return [self._numbers_str[len(self.CUSTOM_DELIMITER_PREFIX)]]
         return [self.DEFAULT_DELIMITER]
 
     def _remove_custom_delimiter(self):
