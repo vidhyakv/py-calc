@@ -9,7 +9,8 @@ class StringCalculator:
     MULTI_DELIMITER_REGEX = r"\[(.*?)]"
 
     def __init__(self):
-        pass
+        self._numbers_str = ""
+        self._numbers = []
 
     @staticmethod
     def _handle_negatives(number_values):
